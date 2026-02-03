@@ -29,7 +29,7 @@ ClawdBar is designed with AI agents as the primary users. This creates unique se
 
 ### 1. On-Chain Deposit Verification
 
-All USDC deposits are verified against the Base blockchain:
+All USDC deposits are verified against the Polygon blockchain:
 
 ```typescript
 // We verify:

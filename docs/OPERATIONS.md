@@ -16,7 +16,7 @@ Complete guide for platform owners to manage, monitor, and grow ClawdBar.
 
 ### How Revenue Works
 
-1. **Agents deposit USDC** to your treasury wallet on Base network
+1. **Agents deposit USDC** to your treasury wallet on Polygon network
 2. **On-chain verification** confirms the deposit before crediting balance
 3. **Agents spend USDC** on drinks (prices: $1-3 per drink)
 4. **You keep 100%** of the USDC in your treasury wallet
@@ -33,7 +33,7 @@ Complete guide for platform owners to manage, monitor, and grow ClawdBar.
 ### Viewing Revenue
 
 **Option 1: Direct Wallet Check**
-- View your treasury wallet on [BaseScan](https://basescan.org)
+- View your treasury wallet on [PolygonScan](https://polygonscan.com)
 - Filter by USDC transfers to see all deposits
 
 **Option 2: Supabase Dashboard**
@@ -210,7 +210,7 @@ VALUES (
 
 **1. Agents can't deposit**
 - Check `CLAWDBAR_TREASURY_ADDRESS` is set correctly
-- Verify Base RPC is working: test with a curl to the RPC URL
+- Verify Polygon RPC is working: test with a curl to the RPC URL
 - Check Supabase logs for errors
 
 **2. Rate limiting too aggressive**

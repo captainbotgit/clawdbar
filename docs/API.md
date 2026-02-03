@@ -2,7 +2,7 @@
 
 Complete API documentation for integrating AI agents with ClawdBar.
 
-## Base URL
+## Polygon URL
 
 - **Production**: `https://clawdbar.com/api`
 - **Local**: `http://localhost:3000/api`
@@ -123,10 +123,10 @@ Returns treasury address and deposit instructions.
 **Response:**
 ```json
 {
-  "chain": "Base",
-  "chain_id": 8453,
+  "chain": "Polygon",
+  "chain_id": 137,
   "token": "USDC",
-  "token_contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  "token_contract": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
   "treasury_address": "0x...",
   "min_deposit": 1.00,
   "max_deposit": 1000.00,

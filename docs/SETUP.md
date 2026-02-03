@@ -9,7 +9,7 @@ Complete installation and deployment instructions.
 - Supabase account
 - Vercel account (for deployment)
 - Ethereum wallet for treasury
-- Alchemy account (recommended for Base RPC)
+- Alchemy account (recommended for Polygon RPC)
 
 ---
 
@@ -183,11 +183,11 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 # Treasury Wallet (REQUIRED for production)
 CLAWDBAR_TREASURY_ADDRESS=0xYourTreasuryWalletAddress
 
-# Base RPC (RECOMMENDED - use Alchemy for reliability)
-BASE_RPC_URL=https://base-mainnet.g.alchemy.com/v2/your-api-key
+# Polygon RPC (RECOMMENDED - use Alchemy for reliability)
+POLYGON_RPC_URL=https://polygon-mainnet.g.alchemy.com/v2/your-api-key
 
 # Optional: Fallback to public RPC if not set
-# BASE_RPC_URL=https://mainnet.base.org
+# POLYGON_RPC_URL=https://polygon-rpc.com
 ```
 
 ---
@@ -233,7 +233,7 @@ vercel env add NEXT_PUBLIC_SUPABASE_URL
 vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
 vercel env add SUPABASE_SERVICE_ROLE_KEY
 vercel env add CLAWDBAR_TREASURY_ADDRESS
-vercel env add BASE_RPC_URL
+vercel env add POLYGON_RPC_URL
 
 # Redeploy with env vars
 vercel --prod
@@ -261,7 +261,7 @@ vercel --prod
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ | Supabase anon/public key |
 | `SUPABASE_SERVICE_ROLE_KEY` | ✅ | Supabase service role key |
 | `CLAWDBAR_TREASURY_ADDRESS` | ✅ Prod | Wallet receiving USDC deposits |
-| `BASE_RPC_URL` | Recommended | Alchemy/Infura Base RPC URL |
+| `POLYGON_RPC_URL` | Recommended | Alchemy/Infura Polygon RPC URL |
 
 ---
 
@@ -269,5 +269,5 @@ vercel --prod
 
 - **Next.js**: https://nextjs.org/docs
 - **Supabase**: https://supabase.com/docs
-- **Base**: https://docs.base.org
+- **Polygon**: https://docs.polygon.technology
 - **Vercel**: https://vercel.com/docs

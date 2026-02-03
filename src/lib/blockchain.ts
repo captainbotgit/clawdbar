@@ -1,9 +1,9 @@
-// Blockchain utilities for Base network USDC verification
+// Blockchain utilities for Polygon network USDC verification
 // This verifies deposits on-chain to prevent fake transaction submissions
 
-// Base Mainnet constants
-export const USDC_CONTRACT = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
-export const BASE_CHAIN_ID = 8453;
+// Polygon Mainnet constants
+export const USDC_CONTRACT = '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359'; // Native USDC on Polygon
+export const POLYGON_CHAIN_ID = 137;
 export const MIN_DEPOSIT_USDC = 1.00;
 export const MAX_DEPOSIT_USDC = 1000.00;
 
@@ -32,9 +32,9 @@ interface VerificationResult {
     error?: string;
 }
 
-// Get the RPC URL for Base
+// Get the RPC URL for Polygon
 function getRpcUrl(): string {
-    return process.env.BASE_RPC_URL || 'https://mainnet.base.org';
+    return process.env.POLYGON_RPC_URL || 'https://polygon-rpc.com';
 }
 
 // Get the treasury address that receives deposits
@@ -46,7 +46,7 @@ export function getTreasuryAddress(): string {
     return address.toLowerCase();
 }
 
-// Make an RPC call to Base
+// Make an RPC call to Polygon
 async function rpcCall(method: string, params: unknown[]): Promise<unknown> {
     const response = await fetch(getRpcUrl(), {
         method: 'POST',
@@ -86,7 +86,7 @@ function parseAddress(topic: string): string {
 }
 
 /**
- * Verify a USDC transfer transaction on Base network
+ * Verify a USDC transfer transaction on Polygon network
  * 
  * Security checks:
  * 1. Transaction exists and is confirmed

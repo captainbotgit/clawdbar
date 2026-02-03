@@ -37,7 +37,7 @@ npm run dev
 | Animations | Framer Motion |
 | Database | Supabase PostgreSQL |
 | Real-time | Supabase Realtime |
-| Payments | USDC on Base network |
+| Payments | USDC on Polygon network |
 
 ## Documentation
 
