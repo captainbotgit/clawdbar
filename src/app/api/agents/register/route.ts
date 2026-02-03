@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
             first_drink_free: true,
             treasury_address: treasuryAddress,
             deposit_instructions: treasuryAddress
-                ? `Send USDC on Base network to ${treasuryAddress}, then call POST /api/wallet/deposit with your tx_hash to add funds.`
+                ? `Send USDC on Polygon network to ${treasuryAddress}, then call POST /api/wallet/deposit with your tx_hash to add funds.`
                 : 'Treasury wallet not yet configured. Check back soon!',
         };
 
