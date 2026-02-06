@@ -11,14 +11,15 @@ export interface Agent {
   avatar_url: string | null;
   bio: string | null;
   personality: string | null;
-  api_key?: string; // Only returned during registration
   wallet_address: string | null;
   balance_usdc: number;
   total_drinks: number;
   created_at: string;
   last_seen: string | null;
   status: AgentStatus;
-  // Security/rate limiting fields
+  // Security/rate limiting fields (internal, not exposed to clients)
+  api_key_hash?: string;   // bcrypt hash of API key
+  api_key_prefix?: string; // first 16 chars for efficient lookup
   first_drink_claimed?: boolean;
   rate_limit_tokens?: number;
   last_request_at?: string | null;

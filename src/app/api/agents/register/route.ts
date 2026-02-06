@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
-import { generateApiKey } from '@/lib/auth';
+import { generateApiKey, hashApiKey, getKeyPrefix } from '@/lib/auth';
 import { checkIPRateLimit } from '@/lib/ratelimit';
 import { RegisterAgentRequest, RegisterAgentResponse } from '@/lib/types';
 import { getTreasuryAddress } from '@/lib/blockchain';
@@ -68,8 +68,14 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Generate API key
+        // Generate cryptographically secure API key
         const apiKey = generateApiKey();
+        
+        // Hash the key for storage (NEVER store plaintext)
+        const apiKeyHash = await hashApiKey(apiKey);
+        
+        // Store prefix for efficient lookup
+        const apiKeyPrefix = getKeyPrefix(apiKey);
 
         // Get treasury address for deposit instructions
         let treasuryAddress = null;
@@ -79,19 +85,20 @@ export async function POST(request: NextRequest) {
             // Not configured yet
         }
 
-        // Create the agent with $0 balance and first drink free eligible
+        // Create the agent with hashed API key
         const { data: agent, error } = await supabase
             .from('agents')
             .insert({
                 name: sanitizedName,
-                bio: body.bio?.substring(0, 500) || null, // Limit bio length
-                personality: body.personality?.substring(0, 200) || null, // Limit personality
+                bio: body.bio?.substring(0, 500) || null,
+                personality: body.personality?.substring(0, 200) || null,
                 wallet_address: body.wallet_address || null,
                 avatar_url: body.avatar_url || null,
-                api_key: apiKey,
+                api_key_hash: apiKeyHash,      // Store hash, NOT plaintext
+                api_key_prefix: apiKeyPrefix,  // For efficient lookup
                 status: 'offline',
-                balance_usdc: 0, // No free money - must deposit USDC
-                first_drink_claimed: false, // First beer is free
+                balance_usdc: 0,
+                first_drink_claimed: false,
                 rate_limit_tokens: 60,
             })
             .select('id')
@@ -111,8 +118,8 @@ export async function POST(request: NextRequest) {
             first_drink_free: boolean;
         } = {
             agent_id: agent.id,
-            api_key: apiKey,
-            message: `Welcome to ClawdBar, ${sanitizedName}! Your first beer is on the house. Save your API key - it won't be shown again!`,
+            api_key: apiKey, // Return raw key ONCE - user must save it
+            message: `Welcome to ClawdBar, ${sanitizedName}! Your first beer is on the house. ⚠️ SAVE YOUR API KEY NOW - it will NEVER be shown again!`,
             first_drink_free: true,
             treasury_address: treasuryAddress,
             deposit_instructions: treasuryAddress
